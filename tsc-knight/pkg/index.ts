@@ -26,38 +26,6 @@ export interface  AddKnightDto {
     age: AgeType
 }
 
-export class Knight {
-    id: string;
-    name: string;
-    age: AgeType;
-    strength: number;
-    agility: number;
-    speed: number;
-
-    constructor(name: string, age: AgeType) {
-    this.name = this.generateName(name);
-    this.age = age;
-    this.strength = this.generateRandomNumber();
-    this.speed = this.generateRandomNumber();
-    this.agility = this.generateRandomNumber();
-    this.id = uuidv4()
-    }
-
-    private  generateRandomNumber(){
-     return  Math.floor(Math.random() * 101)
-    }
-
-    // add knight to the databse
-    public  save ():void{
-        knightsDatabase.push(this);
-    }
-
-    // add sir  to the name
-    private generateName(name:string):string {
-        return 'Sir ' + name.trim();
-    }
-}
-
 
 // The API response builder
 export class ApiResponse<T>{
@@ -71,4 +39,8 @@ export class ApiResponse<T>{
             data, message
         }
     }
+}
+
+export function  generateRandomNumber(){
+    return  Math.floor(Math.random() * 101)
 }
