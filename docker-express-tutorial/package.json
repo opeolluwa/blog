@@ -1,0 +1,22 @@
+{
+  "name": "docker-express-tutorial",
+  "version": "1.0.0",
+  "description": "a guide on dockerizing node-express application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch index.js",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "docker",
+    "express",
+    "nodoe"
+  ],
+  "author": "adeoye adefem <adefemiadeoye@yahoo.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "uuid": "^9.0.1"
+  }
+}
