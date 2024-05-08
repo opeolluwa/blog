@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#:   Title           : Hello, World in Bash
+#:   Author          : Adeoye Adefemi
+#:   Description     : A shell script to print "Hello, World" to the Standard Output
+#:   Date Created    : April 25, 20254
+#:   Last Modified   : April 25, 2024
+#:   Options         : None
+
+echo "Hello, World!"

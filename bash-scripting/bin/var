@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#:   Title           : Hello, World in Bash
+#:   Author          : Adeoye Adefemi
+#:   Description     : A shell script to illustrate the concept of variable declaration and use
+#:   Date Created    : April 25, 20254
+#:   Last Modified   : April 25, 2024
+#:   Options         : None
+
+# define a variable called name
+name="Adeoye Adefemi"
+
+# print the value to concept to the terminal 
+echo "$name"  
