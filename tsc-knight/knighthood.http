@@ -1,5 +1,0 @@
-GET http://localhost:5007
-Accept: application/json
-
-###
-npm install sequelize sqlite3
