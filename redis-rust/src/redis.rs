@@ -22,17 +22,31 @@ impl RedisClient {
 }
 
 pub trait RedisClientExt {
-    fn get(&mut self, key: &str, value: &str) -> impl Future<Output = Result<RedisKV, AppError>>;
-    fn set(&mut self, key: &str) -> impl Future<Output = Result<RedisKV, AppError>>;
+    fn set(&mut self, key: &str, value: &str) -> impl Future<Output = Result<(), AppError>>;
+    fn get(&mut self, key: &str) -> impl Future<Output = Result<RedisKV, AppError>>;
 }
 
 impl RedisClientExt for RedisClient {
-    async fn get(&mut self, key: &str, value: &str) -> Result<RedisKV, AppError> {
-        let result: Option<String> = self.connection_manager.get(key).await.ok();
-        todo!()
+    async fn set(&mut self, key: &str, value: &str) -> Result<(), AppError> {
+        let _: () = self
+            .connection_manager
+            .set(key, value)
+            .await
+            .map_err(AppError::from)?;
+
+        Ok(())
     }
 
-    async fn set(&mut self, key: &str) -> Result<RedisKV, AppError> {
-        todo!()
+    async fn get(&mut self, key: &str) -> Result<RedisKV, AppError> {
+        let result: Option<String> = self.connection_manager.get(key).await.ok();
+
+        if result.is_none() {
+            return Err(AppError::ResourceNotFound);
+        };
+
+        Ok(RedisKV {
+            key: key.to_string(),
+            value: result.unwrap(),
+        })
     }
 }

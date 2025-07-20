@@ -1,10 +1,5 @@
 pub struct RedisKV {
-    key: String,
-    value: Option<String>,
+    pub(crate) key: String,
+    pub(crate) value: String,
 }
 
-
-pub struct RedisKvBuilder {
-    key: String,
-    value: Option<String>,
-}
