@@ -1,0 +1,29 @@
+
+
+DATABASE_PATH :=  "sqlite:://totp.sqlite?mode=rwc"
+
+
+set dotenv-required := true
+set dotenv-load := true
+set dotenv-path := ".env"
+set export := true
+
+@install-toolchain:
+	cargo install cargo-watch
+	cargo install cargo-sort
+	cargo install cargo-group-imports
+	cargo install sea-orm-cli@^2.0.0-rc
+
+
+@migrate-add target:
+	@sea-orm-cli migrate generate "{{target}}"
+
+@migrate-init:
+	@sea-orm-cli migrate init
+
+@generate-entities:
+	sea-orm-cli generate entity \
+		--database-url {{DATABASE_PATH}} \
+		--with-serde both \
+		--model-extra-attributes 'serde(rename_all="camelCase")' \
+		-o src/entities
