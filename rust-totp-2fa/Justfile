@@ -1,6 +1,4 @@
-
-
-DATABASE_PATH :=  "sqlite:://totp.sqlite?mode=rwc"
+DATABASE_PATH :=  "sqlite://./totp.sqlite?mode=rwc"
 
 
 set dotenv-required := true
@@ -27,3 +25,10 @@ set export := true
 		--with-serde both \
 		--model-extra-attributes 'serde(rename_all="camelCase")' \
 		-o src/entities
+
+@migrate-run:
+	DATABASE_URL={{DATABASE_PATH}} sea-orm-cli  migrate up
+
+db-pull:
+	just migrate-run
+	just generate-entities

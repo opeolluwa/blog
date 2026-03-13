@@ -9,14 +9,18 @@ impl MigrationTrait for Migration {
         manager
             .create_table(
                 Table::create()
-                    .table("users")
+                    .table("totp_settings")
                     .if_not_exists()
                     .col(uuid("identifier"))
-                    .col(string("first_name"))
-                    .col(string("last_name"))
-                    .col(string("email"))
-                    .col(string("password"))
-                    .col(ColumnDef::new("last_login").timestamp())
+                    .col(uuid("user_identifier"))
+                    .col(binary("secret").binary_len(64))
+                    .foreign_key(
+                        ForeignKey::create()
+                            .name("fk_users_totp_identifier")
+                            .from("totp_settings", "user_identifier")
+                            .to("users", "identifier")
+                            .on_delete(ForeignKeyAction::Cascade),
+                    )
                     .to_owned(),
             )
             .await
@@ -24,7 +28,7 @@ impl MigrationTrait for Migration {
 
     async fn down(&self, manager: &SchemaManager) -> Result<(), DbErr> {
         manager
-            .drop_table(Table::drop().table("users").to_owned())
+            .drop_table(Table::drop().table("totp_settings").to_owned())
             .await
     }
 }

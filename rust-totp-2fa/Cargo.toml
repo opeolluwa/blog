@@ -3,12 +3,19 @@ name = "rust-totp-2fa"
 version = "0.1.0"
 edition = "2024"
 
+[workspace]
+members = [".", "migration"]
+
+[lib]
+path = "src/lib.rs"
+name = "totp_lib"
+
 [dependencies]
 axum = { version = "0.8.8", features = ["macros"] }
 chrono = "0.4.44"
 dotenv = "0.15.0"
 sanitizer = { version = "1.0.0", features = ["derive"] }
-sea-orm = { version = "1.1.19", features = ["sqlx-sqlite", "with-uuid"] }
+sea-orm = { version = "~2.0.0-rc", features = ["sqlx-sqlite", "with-uuid"] }
 serde = { version = "1.0.228", features = ["derive"] }
 tokio = { version = "1.50.0", features = ["full"] }
 tower-http = { version = "0.6.8", features = ["cors"] }
