@@ -15,5 +15,10 @@ pub enum AuthenticationError {
     TokenRevoked,
     #[error("internal server error")]
     InternalServerError,
-    
+    #[error(transparent)]
+    AppError(#[from] crate::errors::app_error::AppError),
+    #[error(transparent)]
+    JwtError(#[from] jsonwebtoken::errors::Error),
+    #[error("{0}")]
+    Other(String),
 }

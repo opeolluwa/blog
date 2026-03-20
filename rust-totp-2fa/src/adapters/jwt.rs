@@ -1,7 +1,7 @@
 use std::fmt::Display;
 use std::time::Duration;
 
-use almond_kernel::utils::extract_env;
+use crate::utils::extract_env;
 use jsonwebtoken::{decode, encode, DecodingKey, EncodingKey, Header, Validation};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
@@ -77,13 +77,13 @@ impl ClaimsBuilder {
 
     pub fn build(mut self) -> Result<Claims, AuthenticationError> {
         if self.claims.email.is_empty() {
-            return Err(AuthenticationError::ValidationError(
+            return Err(AuthenticationError::Other(
                 "Email is required".to_string(),
             ));
         }
 
         if self.claims.user_identifier == Uuid::nil() {
-            return Err(AuthenticationError::ValidationError(
+            return Err(AuthenticationError::Other(
                 "User identifier is required".to_string(),
             ));
         }

@@ -1,9 +1,8 @@
-use serde::{Deserialize, Serialize};
 
-use crate::errors::repository_error::RepositoryError;
+use crate::errors::{auth_error::AuthenticationError, repository_error::RepositoryError};
 
 
-#[derive(Debug, Serialize, thiserror::Error, Deserialize)]
+#[derive(Debug, thiserror::Error)]
 pub enum ServiceError {
     #[error("not found")]
     NotFound,
@@ -15,5 +14,7 @@ pub enum ServiceError {
     InternalServerError,
     #[error(transparent)]
     RepositoryError(#[from] RepositoryError),
+    #[error(transparent)]
+    AuthenticationError(#[from] AuthenticationError),
     
 }

@@ -6,7 +6,7 @@ use axum::response::{IntoResponse, Response};
 use serde::Serialize;
 use serde::de::DeserializeOwned;
 
-use crate::errors::service_error::ServiceError;
+// use crate::errors::service_error::ServiceError;
 
 #[derive(Debug, Serialize)]
 pub struct ApiResponse<T>
@@ -24,15 +24,15 @@ where
     status_code: StatusCode,
 }
 
-impl From<ServiceError> for ApiResponse<()> {
-    fn from(value: ServiceError) -> Self {
-        ApiResponse {
-            message: None,
-            data: Some(()),
-            status_code: value.into_response().status(),
-        }
-    }
-}
+// impl From<ServiceError> for ApiResponse<()> {
+//     fn from(value: ServiceError) -> Self {
+//         ApiResponse {
+//             message: None,
+//             data: Some(()),
+//             status_code: value.into_response().status(),
+//         }
+//     }
+// }
 
 pub type EmptyResponseBody = ();
 

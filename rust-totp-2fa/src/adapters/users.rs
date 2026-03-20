@@ -24,3 +24,22 @@ impl Into<entities::users::ActiveModel> for CreateUserRequest {
         }
     }
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct LoginRequest {
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct LoginResponse {
+    pub token: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct SignUpRequest {
+    pub first_name: String,
+    pub last_name: String,
+    pub email: String,
+    pub password: String,
+}

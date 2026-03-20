@@ -12,6 +12,12 @@ pub struct UserRepository {
     db_conn: Arc<DatabaseConnection>,
 }
 
+impl UserRepository {
+    pub fn new(db_conn: Arc<DatabaseConnection>) -> Self {
+        Self { db_conn }
+    }
+}
+
 pub(crate) trait UserRepositoryExt {
 
     async fn find_by_email(&self, email: &str) -> Option<Users>;
@@ -25,7 +31,7 @@ pub(crate) trait UserRepositoryExt {
 impl UserRepositoryExt for UserRepository {
     async fn create(&self, req: CreateUserRequest) -> Result<Users, RepositoryError> {
         let active_model : entities::users::ActiveModel = req.into();
-        let result = active_model.insert(self.db_conn.as_ref()).await.map_err(|_| RepositoryError::DatabaseError)?;Ï
+        let result = active_model.insert(self.db_conn.as_ref()).await.map_err(|_| RepositoryError::DatabaseError)?;
         Ok(result.into())
     }
 
