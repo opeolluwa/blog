@@ -11,7 +11,7 @@ impl MigrationTrait for Migration {
                 Table::create()
                     .table("totp_settings")
                     .if_not_exists()
-                    .col(uuid("identifier"))
+                    .col(uuid("identifier").primary_key())
                     .col(uuid("user_identifier"))
                     .col(binary("secret").binary_len(64))
                     .foreign_key(

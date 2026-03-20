@@ -7,6 +7,7 @@ use serde::{Deserialize, Serialize};
 #[sea_orm(table_name = "totp_settings")]
 #[serde(rename_all = "camelCase")]
 pub struct Model {
+    #[sea_orm(primary_key, auto_increment = false)]
     pub identifier: Uuid,
     pub user_identifier: Uuid,
     #[sea_orm(column_type = "Binary(64)")]
